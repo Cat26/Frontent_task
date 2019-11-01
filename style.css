@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Averia+Libre:700&display=swap');
+
+body {
+    font-size: 25px;
+    font-family: 'Averia Libre', cursive;
+}
+.search {
+    width: 50%;
+    margin: 50px auto;
+}
+
+#search-input {
+    width: 60%;
+    font-size: 20px;
+    border-radius: 4px;
+    border-color: #8d7b7b;
+    border-width: 1.5px;
+}
+ #search-btn {
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    background: #1c5fb3;
+    color: white;
+    border-color: #8d7b7b;
+    border-width: 1.5px;
+ }
+ .error {
+     color: red;
+ }
