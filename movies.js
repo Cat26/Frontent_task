@@ -7,26 +7,30 @@ class DisplayMovies {
         this.currentPage = 1;
         this.moviesStore = [];
         this.helperList = [];
+        this.detailData = [];
     }
 
     sliceListOfMovies(list){
+        console.log(this.numOfPages);
+        console.log(this.currentPage);
         this.addListItems(list, this.moviesStore);
         this.addListItems(list, this.helperList);
-        console.log(this.moviesStore.length);
+        
         if(this.currentPage < this.numOfPages){
             if(this.helperList.length >= 12){
-                this.listMovies(this.helperList.splice(0, 12));
+                this.listMovies(this.helperList.splice(0, 11));
             } else {
                 this.currentPage += 1;
+                this.clearList(this.detailData);
                 return 0;
             }
         } else if(this.currentPage === this.numOfPages){
-            console.log('hello');
             this.listMovies(this.helperList);
             this.displayError('No more results to display', 'no-more-results');
         }
 
         this.currentPage += 1;
+        this.clearList(this.detailData);
         return 1;
     }
 
@@ -35,8 +39,14 @@ class DisplayMovies {
             tolist.push(movie);
         });
     }
+    clearList(list){
+        while(list.length){
+            list.pop();
+        }
+    }
 
     listMovies(list){
+        console.log('list movies');
         list.forEach(movie => {
             
             const li = document.createElement('li');
@@ -54,7 +64,7 @@ class DisplayMovies {
     }
 
     calculateNumPages(){
-        this.numOfPages = Math.ceil(this.totalResults / 12);
+        this.numOfPages = Math.ceil(this.totalResults / 10);
     }
 
     clearMovies(){
@@ -93,6 +103,7 @@ class DisplayMovies {
         this.currentPage = 1;
         this.moviesStore = [];
         this.helperList = [];
+        this.detailData = [];
     }
 
 

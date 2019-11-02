@@ -39,7 +39,9 @@ function getMovies() {
                 movies.totalResults = results.totalResults;
                 movies.calculateNumPages();
                 pagesNum = movies.numOfPages;
-                if(movies.sliceListOfMovies(results.Search) === 0){
+                this.getMoviesDetail(results.Search);
+                console.log(movies.detailData);
+                if(movies.sliceListOfMovies(movies.detailData) === 0){
                     this.sendRequestMore();
                 };  
             }
@@ -50,22 +52,37 @@ function getMovies() {
         });
 }
 
-function getMoreMovies(){
+function getMoreMovies() {
     omdb.getMovies()
         .then(results => {
             movies.data = results;
             if(results.Search === undefined){
                 movies.displayError(results.Error, 'error', 1);
-            } else {
-                if(movies.sliceListOfMovies(results.Search) === 0){
+            } else {               
+                this.getMoviesDetail(results.Search);
+                if(movies.sliceListOfMovies(movies.detailData) === 0){
                     this.sendRequestMore();
-                };      
+                };  
             }
-            
-        })
+    })
         .catch(err => {
             console.log(err);
         });
 }
+
+
+function getMoviesDetail(list){
+    list.forEach(movie => {
+        omdb.getMovieDetail(movie.imdbID)
+            .then(results => {
+                movies.detailData.push(results);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    });
+}
+
+
 
 
