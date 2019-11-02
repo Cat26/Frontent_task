@@ -2,12 +2,15 @@ const search_value = document.getElementById('search-input');
 const search_submit = document.getElementById('search-btn');
 const movies = new DisplayMovies();
 const omdb = new OMDb();
+let pagesNum = 0;
+let scrollTimeout;
 
 search_submit.addEventListener('click', sendRequestNew);
 
 window.onscroll = () => {
+    clearTimeout(scrollTimeout);
     if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-        sendRequestMore();
+        scrollTimeout = setTimeout(sendRequestMore, 100);
     }
 }
 
@@ -18,7 +21,9 @@ function sendRequestNew() {
 
 function sendRequestMore() {
     omdb.nextPage();
-    getMoreMovies();
+    if(omdb.page <= pagesNum){
+        getMoreMovies();
+    }  
 }
 
 function getMovies() {
@@ -33,6 +38,7 @@ function getMovies() {
             } else {
                 movies.totalResults = results.totalResults;
                 movies.calculateNumPages();
+                pagesNum = movies.numOfPages;
                 if(movies.sliceListOfMovies(results.Search) === 0){
                     this.sendRequestMore();
                 };  
@@ -52,7 +58,6 @@ function getMoreMovies(){
                 movies.displayError(results.Error, 'error', 1);
             } else {
                 if(movies.sliceListOfMovies(results.Search) === 0){
-                    console.log('yes')
                     this.sendRequestMore();
                 };      
             }

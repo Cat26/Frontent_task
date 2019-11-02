@@ -12,14 +12,16 @@ class DisplayMovies {
     sliceListOfMovies(list){
         this.addListItems(list, this.moviesStore);
         this.addListItems(list, this.helperList);
+        console.log(this.moviesStore.length);
         if(this.currentPage < this.numOfPages){
             if(this.helperList.length >= 12){
                 this.listMovies(this.helperList.splice(0, 12));
-                console.log(this.helperList);
             } else {
+                this.currentPage += 1;
                 return 0;
             }
-        } else {
+        } else if(this.currentPage === this.numOfPages){
+            console.log('hello');
             this.listMovies(this.helperList);
             this.displayError('No more results to display', 'no-more-results');
         }
@@ -53,7 +55,6 @@ class DisplayMovies {
 
     calculateNumPages(){
         this.numOfPages = Math.ceil(this.totalResults / 12);
-        console.log(this.numOfPages);
     }
 
     clearMovies(){
