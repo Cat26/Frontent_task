@@ -3,10 +3,21 @@
 body {
     font-size: 25px;
     font-family: 'Averia Libre', cursive;
+    margin: 0;
 }
 .search {
-    width: 50%;
-    margin: 50px auto;
+    width: 100%;
+    margin-bottom: 40px;
+    padding: 10px;
+    top: 0;
+    text-align: center;
+    height: 38px;
+    position: fixed;
+    background: #383642;
+}
+#search-label{
+    color: #fff;
+    margin-left: 20px;
 }
 
 #search-input {
@@ -27,4 +38,20 @@ body {
  }
  .error, .no-more-results {
      color: red;
+ }
+
+ li {
+     width: 100%;
+     display: inline-block;
+ }
+ .img-div {
+     width: 50%;
+     float: left;
+ }
+ img {
+     width: 80%;
+ }
+ .data-div {
+    width: 50%;
+    float: left;
  }

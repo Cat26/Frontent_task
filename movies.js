@@ -5,27 +5,30 @@ class DisplayMovies {
         this.totalResults = 0;
         this.numOfPages = 0;
         this.currentPage = 1;
-        this.moviesStore = [];
         this.helperList = [];
         this.detailData = [];
     }
 
     sliceListOfMovies(list){
+        console.log(list);
         console.log(this.numOfPages);
         console.log(this.currentPage);
-        this.addListItems(list, this.moviesStore);
-        this.addListItems(list, this.helperList);
+        this.addListItems(list);
+        this.addListItems(list);
+        console.log(this.helperList);
         
         if(this.currentPage < this.numOfPages){
             if(this.helperList.length >= 12){
-                this.listMovies(this.helperList.splice(0, 11));
+                this.listMovies(this.helperList.splice(0, 12));
             } else {
                 this.currentPage += 1;
                 this.clearList(this.detailData);
                 return 0;
             }
         } else if(this.currentPage === this.numOfPages){
-            this.listMovies(this.helperList);
+            this.addListItems(list);
+            // console.log(list)
+            // this.listMovies(list);
             this.displayError('No more results to display', 'no-more-results');
         }
 
@@ -34,9 +37,10 @@ class DisplayMovies {
         return 1;
     }
 
-    addListItems(fromlist, tolist){
-        fromlist.forEach(movie => {
-            tolist.push(movie);
+    addListItems(list){
+        list.forEach(movie => {
+            console.log('add');
+            this.helperList.push(movie);
         });
     }
     clearList(list){
@@ -46,17 +50,23 @@ class DisplayMovies {
     }
 
     listMovies(list){
-        console.log('list movies');
-        list.forEach(movie => {
-            
+        list.forEach(movie => {         
+            const movieItem = new Movie(movie);
+            movieItem.defautImage();
             const li = document.createElement('li');
             li.className = 'movie';
             li.innerHTML = `
-            <img src="${movie.Poster}">
-            <p>Title: ${movie.Title}</p>
-            <p>Relase date: ${movie.Year}</p>
-            <p>Runtime: ${movie.Title}</p>
-
+            <div class="img-div">
+                <img src="${movieItem.coverImage}">
+            </div>
+            <div class="data-div">
+                <p class="title">Title: ${movieItem.title}</p>
+                <p class="relase-date">Relase date: ${movieItem.realaseDate}</p>
+                <p class="runtime">Runtime: ${movieItem.runtime}</p>
+                <p class="rating">Rating: ${movieItem.rating}</p>
+                <p class="awards">Awards: ${movieItem.awards}</p>
+                <p class="description">Description: ${movieItem.description}</p>
+            </div>
             `;
 
             this.moviesList.appendChild(li);
@@ -75,12 +85,12 @@ class DisplayMovies {
 
     displayError(msg, className, timeout){
         this.clearError(className);
-        const div = document.createElement('div');
-        div.className = `${className}`;
-        div.appendChild(document.createTextNode(msg));
+        const p = document.createElement('p');
+        p.className = `${className}`;
+        p.appendChild(document.createTextNode(msg));
         const body = document.querySelector('body');
         const results = document.querySelector('.results');
-        body.insertBefore(div, results.nextSibling);
+        body.insertBefore(p, results.nextSibling);
         
         if(timeout){
             setTimeout(() => {
