@@ -2,7 +2,8 @@ const search_value = document.getElementById('search-input');
 const search_submit = document.getElementById('search-btn');
 const sort_submit = document.querySelector('#sort-btn');
 const sort_radios = document.getElementsByName('sort');
-
+const filter_date = document.querySelector('#filter-year-btn');
+const filter_rating = document.querySelector('#filter-rating-btn');
 
 const movies = new DisplayMovies();
 const omdb = new OMDb();
@@ -12,6 +13,10 @@ let scrollActive = 0;
 
 search_submit.addEventListener('click', sendRequestNew);
 sort_submit.addEventListener('click', sortResults);
+
+filter_date.addEventListener('click', filterResultsYear);
+filter_date.addEventListener('click', filterResultsRating);
+
 
 window.onscroll = () => {
     if(scrollActive === 1){
@@ -107,6 +112,45 @@ function sortResults(e){
     if(checked === 0){
         alert("please select Radio");
     }
+    e.preventDefault();
+}
+
+function filterResultsYear(e){
+    const year = document.querySelector('#filter-date').value;
+    const minYear = 1895;
+    const maxYear = new Date().getFullYear();
+
+    if(year === ''){
+        alert('Please provide year to filter!');
+    } else if(isNaN(parseInt(year))){
+        alert('Please provide correct format of year!');
+    } else if(year < minYear || year > maxYear){
+        alert(`Please provide year between ${minYear} and ${maxYear}`);
+    } else if(!Number.isInteger(year)) {
+        alert('Please provide correct format of year!');
+    } else {
+        scrollActive = 0;
+        movies.filterResultsByYear(year);
+    }
+    e.preventDefault();
+}
+
+function filterResultsRating(e){
+    const rating = document.querySelector('#filter-rating').value;
+    const minRating = 0;
+    const maxRating = 10;
+
+    if(rating === ''){
+        alert('Please provide rating to filter!');
+    } else if(isNaN(parseInt(rating))){
+        alert('Please provide correct format of rating!');
+    } else if(year < minYear || year > maxYear){
+        alert(`Please provide year between ${minYear} and ${maxYear}`);
+    } else {
+        scrollActive = 0;
+        movies.filterResultsByYear(year);
+    }
+
     e.preventDefault();
 }
 

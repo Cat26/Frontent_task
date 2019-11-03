@@ -123,6 +123,23 @@ class DisplayMovies {
         }
     }
 
+    filterResultsByYear(year){
+        if(this.moviesShown.length > 0){
+            const filtered = this.moviesShown.filter( movie => {
+                return new Date(movie.Released).getFullYear() == year;
+            });
+            if(filtered.length > 0){
+                this.clearMovies();
+                this.listMovies(filtered);
+            } else {
+                this.clearMovies();
+                this.displayError('No results to display', 'no-more-results');
+            }
+        } else {
+            alert('no data to sort');
+        }
+    }
+
 }
 
 
