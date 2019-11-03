@@ -17,5 +17,3 @@ Based on free API: http://www.omdbapi.com/ create web application which allows s
 
 Recruitment task should be written in pure JS (frameworks are not allowed).
 Do not use libraries (e.g. Boostrap) for styling.
-
-[Link to index.html](https://cat26.github.io/Frontent_task/index.html)
