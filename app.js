@@ -15,7 +15,7 @@ search_submit.addEventListener('click', sendRequestNew);
 sort_submit.addEventListener('click', sortResults);
 
 filter_date.addEventListener('click', filterResultsYear);
-filter_date.addEventListener('click', filterResultsRating);
+filter_rating.addEventListener('click', filterResultsRating);
 
 
 window.onscroll = () => {
@@ -126,7 +126,7 @@ function filterResultsYear(e){
         alert('Please provide correct format of year!');
     } else if(year < minYear || year > maxYear){
         alert(`Please provide year between ${minYear} and ${maxYear}`);
-    } else if(!Number.isInteger(year)) {
+    } else if(!Number.isInteger(Number(year))) {
         alert('Please provide correct format of year!');
     } else {
         scrollActive = 0;
@@ -136,6 +136,7 @@ function filterResultsYear(e){
 }
 
 function filterResultsRating(e){
+    console.log('filter rating');
     const rating = document.querySelector('#filter-rating').value;
     const minRating = 0;
     const maxRating = 10;
@@ -144,11 +145,13 @@ function filterResultsRating(e){
         alert('Please provide rating to filter!');
     } else if(isNaN(parseInt(rating))){
         alert('Please provide correct format of rating!');
-    } else if(year < minYear || year > maxYear){
-        alert(`Please provide year between ${minYear} and ${maxYear}`);
+    } else if(rating < minRating || rating > maxRating){
+        alert(`Please provide rating between ${minRating} and ${maxRating}`);
+    } else if(!Number.isInteger(Number(rating))) {
+        alert('Please provide an integer!');
     } else {
         scrollActive = 0;
-        movies.filterResultsByYear(year);
+        movies.filterResultsByRating(rating);
     }
 
     e.preventDefault();

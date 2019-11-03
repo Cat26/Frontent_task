@@ -140,6 +140,23 @@ class DisplayMovies {
         }
     }
 
+    filterResultsByRating(rating){
+        if(this.moviesShown.length > 0){
+                const filtered = this.moviesShown.filter( movie => {
+                return parseInt(movie.imdbRating) == rating;
+            });
+            if(filtered.length > 0){
+                this.clearMovies();
+                this.listMovies(filtered);
+            } else {
+                this.clearMovies();
+                this.displayError('No results to display', 'no-more-results');
+            }
+        } else {
+            alert('no data to filter');
+        }
+    }
+
 }
 
 
