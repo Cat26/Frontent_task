@@ -1,49 +1,36 @@
 class DisplayMovies {
     constructor(data){
         this.moviesList = document.querySelector('.list-results');
-        this.data = data;
         this.totalResults = 0;
         this.numOfPages = 0;
         this.currentPage = 1;
-        this.helperList = [];
         this.detailData = [];
+        this.moviesStore = [];
+        this.helperListCounter = 0;
     }
 
-    sliceListOfMovies(list){
-        console.log(list);
-        console.log(this.numOfPages);
+    sliceListOfMovies(movieDetail){
+        this.detailData.push(movieDetail);
+        this.moviesStore.push(movieDetail);
         console.log(this.currentPage);
-        this.addListItems(list);
-        this.addListItems(list);
-        console.log(this.helperList);
-        
         if(this.currentPage < this.numOfPages){
-            if(this.helperList.length >= 12){
-                this.listMovies(this.helperList.splice(0, 12));
-            } else {
-                this.currentPage += 1;
-                this.clearList(this.detailData);
-                return 0;
+            if(this.detailData.length >= 12){
+                this.listMovies(this.detailData.splice(0, 12));
             }
         } else if(this.currentPage === this.numOfPages){
-            this.addListItems(list);
-            // console.log(list)
-            // this.listMovies(list);
-            this.displayError('No more results to display', 'no-more-results');
+            console.log(this.moviesStore.length)
+            console.log(this.totalResults)
+            if(this.totalResults == this.moviesStore.length){
+                console.log('fffff');
+                this.listMovies(this.detailData);
+                console.log(this.moviesStore);
+                this.displayError('No more results to display', 'no-more-results');
+            }           
         }
-
-        this.currentPage += 1;
-        this.clearList(this.detailData);
-        return 1;
     }
 
-    addListItems(list){
-        list.forEach(movie => {
-            console.log('add');
-            this.helperList.push(movie);
-        });
-    }
-    clearList(list){
+
+    clearList(list) {
         while(list.length){
             list.pop();
         }
@@ -52,7 +39,7 @@ class DisplayMovies {
     listMovies(list){
         list.forEach(movie => {         
             const movieItem = new Movie(movie);
-            movieItem.defautImage();
+            movieItem.attributesDefaults();
             const li = document.createElement('li');
             li.className = 'movie';
             li.innerHTML = `

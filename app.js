@@ -22,6 +22,8 @@ function sendRequestNew() {
 function sendRequestMore() {
     omdb.nextPage();
     if(omdb.page <= pagesNum){
+        console.log(omdb.page);
+        console.log(pagesNum);
         getMoreMovies();
     }  
 }
@@ -32,7 +34,6 @@ function getMovies() {
             movies.clearMovies();
             movies.resetValues();
             movies.clearError('no-more-results');
-            movies.data = results;
             if(results.Search === undefined){
                 movies.displayError(results.Error, 'error', 1);
             } else {
@@ -40,10 +41,10 @@ function getMovies() {
                 movies.calculateNumPages();
                 pagesNum = movies.numOfPages;
                 this.getMoviesDetail(results.Search);
-                console.log(movies.detailData);
-                if(movies.sliceListOfMovies(movies.detailData) === 0){
-                    this.sendRequestMore();
-                };  
+                if(results.Search.length < 12){
+                    console.log('less');
+                    sendRequestMore();
+                } 
             }
         
     })
@@ -55,14 +56,16 @@ function getMovies() {
 function getMoreMovies() {
     omdb.getMovies()
         .then(results => {
-            movies.data = results;
             if(results.Search === undefined){
                 movies.displayError(results.Error, 'error', 1);
-            } else {               
-                this.getMoviesDetail(results.Search);
-                if(movies.sliceListOfMovies(movies.detailData) === 0){
-                    this.sendRequestMore();
-                };  
+            } else {
+                movies.currentPage += 1;
+                if(movies.totalResults > movies.moviesStore.length){
+                    this.getMoviesDetail(results.Search);
+                    if(movies.detailData.length < 2){
+                        sendRequestMore();
+                    }
+                }               
             }
     })
         .catch(err => {
@@ -75,7 +78,7 @@ function getMoviesDetail(list){
     list.forEach(movie => {
         omdb.getMovieDetail(movie.imdbID)
             .then(results => {
-                movies.detailData.push(results);
+                movies.sliceListOfMovies(results);
             })
             .catch(err => {
                 console.log(err);

@@ -9,6 +9,7 @@ class OMDb {
     async getMovies(){
         const response = await fetch(`http://www.omdbapi.com/?s=${this.title}&apikey=${this.apiKey}&page=${this.page}`);
         const data = await response.json();
+        console.log(data);
         return data;
     }
 

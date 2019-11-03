@@ -25,6 +25,7 @@ class Movie {
         if(this.description === 'N/A'){
             this.description = 'no data'
         }
+        this.shortenDesciption();
     }
 
     checkAwards(){
@@ -35,6 +36,10 @@ class Movie {
         }
     }
 
-    
+    shortenDesciption(){
+
+    }
+
+
 
 }
