@@ -146,6 +146,7 @@ class DisplayMovies {
                 return parseInt(movie.imdbRating) == rating;
             });
             if(filtered.length > 0){
+                console.log(filtered);
                 this.clearMovies();
                 this.listMovies(filtered);
             } else {

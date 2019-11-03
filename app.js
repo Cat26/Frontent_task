@@ -36,8 +36,6 @@ function sendRequestNew() {
 function sendRequestMore() {
     omdb.nextPage();
     if(omdb.page <= pagesNum){
-        console.log(omdb.page);
-        console.log(pagesNum);
         getMoreMovies();
     }  
 }

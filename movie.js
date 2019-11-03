@@ -37,7 +37,9 @@ class Movie {
     }
 
     shortenDesciption(){
-
+        if(this.description.length > 100){
+            this.description = this.description.substring(0, 101) + '...';
+        }
     }
 
 

@@ -1,6 +1,5 @@
 class OMDb {
     constructor(){
-        // this.apiKey = 'e1eef85c';
         this.apiKey = '630f32c7';
         this.title = '';
         this.page = 1;
@@ -9,7 +8,6 @@ class OMDb {
     async getMovies(){
         const response = await fetch(`http://www.omdbapi.com/?s=${this.title}&apikey=${this.apiKey}&page=${this.page}`);
         const data = await response.json();
-        console.log(data);
         return data;
     }
 
