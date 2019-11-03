@@ -9,26 +9,27 @@
 </head>
 <body>
     <div class="search">
-        <input id="search-input" type="text" placeholder="movie title">
-        <button id="search-btn" type="submit">Search</button>
-        <form class="sort">
-            <label for="sort-rating">rating</label>
-            <input type="radio" value="rating" id="sort-rating" name="sort">
-            <label for="sort-name">name</label>
-            <input type="radio" value="name" id="sort-name" name="sort">
-            <label for="sort-date">release date</label>
-            <input type="radio" value="release-date" id="sort-date" name="sort">
-            <button id="sort-btn" type="submit">sort</button>
-        </form>
-        <form class="filter-release-year">
-                <input type="text" placeholder="release year" id="filter-date" name="filter">
-                <button id="filter-year-btn" type="submit">filter</button>
-        </form>
-        <form class="filter-rating">
-                <input type="text" placeholder="rating: 1 - 10" id="filter-rating" name="filter">
-                <button id="filter-rating-btn" type="submit">filter</button>
-        </form>
-        
+        <input class="input" id="search-input" type="text" placeholder="movie title">
+        <button class="btn" id="search-btn" type="submit">Search</button>
+        <div class="advance-sort">
+            <form class="sort">
+                <label for="sort-rating">rating</label>
+                <input type="radio" value="rating" id="sort-rating" name="sort">
+                <label for="sort-name">name</label>
+                <input type="radio" value="name" id="sort-name" name="sort">
+                <label for="sort-date">release date</label>
+                <input type="radio" value="release-date" id="sort-date" name="sort">
+                <button class="btn" id="sort-btn" type="submit">sort</button>
+            </form>
+            <form class="filter-release-year">
+                    <input class="input" type="text" placeholder="release year" id="filter-date" name="filter">
+                    <button class="btn" id="filter-year-btn" type="submit">filter</button>
+            </form>
+            <form class="filter-rating">
+                    <input class="input" type="text" placeholder="rating: 1 - 10" id="filter-rating" name="filter">
+                    <button class="btn" id="filter-rating-btn" type="submit">filter</button>
+            </form>
+        </div>   
     </div>
     <div class="results">
         <ul class="list-results">

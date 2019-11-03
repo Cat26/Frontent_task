@@ -14,14 +14,11 @@ class DisplayMovies {
         this.moviesStore.push(movieDetail);
         if(this.currentPage < this.numOfPages){
             if(this.detailData.length >= 12){
-                this.listMovies(this.detailData.splice(0, 12));
+                this.listMovies(this.detailData.splice(0, 12), true);
             }
         } else if(this.currentPage === this.numOfPages){
-            console.log(this.moviesStore.length)
-            console.log(this.totalResults)
             if(this.totalResults == this.moviesStore.length){
-                this.listMovies(this.detailData);
-                console.log(this.moviesStore);
+                this.listMovies(this.detailData, true);
                 this.displayError('No more results to display', 'no-more-results');
             }           
         }
@@ -34,9 +31,12 @@ class DisplayMovies {
         }
     }
 
-    listMovies(list){
+    listMovies(list, search){
         list.forEach(movie => {
-            this.moviesShown.push(movie);         
+            if(search){
+                this.moviesShown.push(movie);
+            }
+                     
             const movieItem = new Movie(movie);
             movieItem.attributesDefaults();
             const li = document.createElement('li');
@@ -104,19 +104,18 @@ class DisplayMovies {
 
     sortResults(sortBy){
         if(this.moviesShown.length > 0){
-            console.log(this.moviesShown);
             if(sortBy === 'name'){
                 this.moviesShown.sort((movieA, movieB) => (movieA.Title > movieB.Title) ? 1 : -1);
                 this.clearMovies();
-                this.listMovies(this.moviesShown);
+                this.listMovies(this.moviesShown, false);
             } else if(sortBy === 'rating'){
                 this.moviesShown.sort((movieA, movieB) => (movieA.imdbRating < movieB.imdbRating) ? 1 : -1);
                 this.clearMovies();
-                this.listMovies(this.moviesShown);
+                this.listMovies(this.moviesShown, false);
             } else if(sortBy === 'release-date'){
                 this.moviesShown.sort((movieA, movieB) => (new Date(movieA.Released) < new Date(movieB.Released)) ? 1 : -1);
                 this.clearMovies();
-                this.listMovies(this.moviesShown);
+                this.listMovies(this.moviesShown, false);
             }
         } else {
             alert('no data to sort');
@@ -130,7 +129,7 @@ class DisplayMovies {
             });
             if(filtered.length > 0){
                 this.clearMovies();
-                this.listMovies(filtered);
+                this.listMovies(filtered, false);
             } else {
                 this.clearMovies();
                 this.displayError('No results to display', 'no-more-results');
@@ -141,12 +140,12 @@ class DisplayMovies {
     }
 
     filterResultsByRating(rating){
+        this.clearError('No results to display');
         if(this.moviesShown.length > 0){
                 const filtered = this.moviesShown.filter( movie => {
                 return parseInt(movie.imdbRating) == rating;
             });
             if(filtered.length > 0){
-                console.log(filtered);
                 this.clearMovies();
                 this.listMovies(filtered);
             } else {
