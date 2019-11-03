@@ -9,9 +9,25 @@
 </head>
 <body>
     <div class="search">
-        <label id="search-label" for="seatch-input">Search</label>
         <input id="search-input" type="text" placeholder="movie title">
-        <button id="search-btn" type="submit">Submit</button>
+        <button id="search-btn" type="submit">Search</button>
+        <form class="sort">
+            <label for="sort-rating">rating</label>
+            <input type="radio" value="rating" id="sort-rating" name="sort">
+            <label for="sort-name">name</label>
+            <input type="radio" value="name" id="sort-name" name="sort">
+            <label for="sort-date">release date</label>
+            <input type="radio" value="release-date" id="sort-date" name="sort">
+            <button id="sort-btn" type="submit">sort</button>
+        </form>
+        <form class="filter">
+                <label for="filter-rating">rating</label>
+                <input type="radio" value="rating" id="filter-rating" name="filter">
+                <label for="filter-date">release date</label>
+                <input type="radio" value="release-date" id="filter-date" name="filter">
+                <button id="filter-btn" type="submit">filter</button>
+        </form>
+        
     </div>
     <div class="results">
         <ul class="list-results">

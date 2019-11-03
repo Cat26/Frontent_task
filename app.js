@@ -1,20 +1,29 @@
 const search_value = document.getElementById('search-input');
 const search_submit = document.getElementById('search-btn');
+const sort_submit = document.querySelector('#sort-btn');
+const sort_radios = document.getElementsByName('sort');
+
+
 const movies = new DisplayMovies();
 const omdb = new OMDb();
 let pagesNum = 0;
 let scrollTimeout;
+let scrollActive = 0;
 
 search_submit.addEventListener('click', sendRequestNew);
+sort_submit.addEventListener('click', sortResults);
 
 window.onscroll = () => {
-    clearTimeout(scrollTimeout);
-    if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-        scrollTimeout = setTimeout(sendRequestMore, 100);
+    if(scrollActive === 1){
+        clearTimeout(scrollTimeout);
+        if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+            scrollTimeout = setTimeout(sendRequestMore, 100);
+        }
     }
 }
 
 function sendRequestNew() {  
+    scrollActive = 1;
     omdb.changeTitle(`${search_value.value}`);   
     getMovies();
 }
@@ -42,7 +51,6 @@ function getMovies() {
                 pagesNum = movies.numOfPages;
                 this.getMoviesDetail(results.Search);
                 if(results.Search.length < 12){
-                    console.log('less');
                     sendRequestMore();
                 } 
             }
@@ -84,6 +92,22 @@ function getMoviesDetail(list){
                 console.log(err);
             })
     });
+}
+
+function sortResults(e){
+    let checked = 0;
+    for(let i = 0; i < sort_radios.length; i++){
+        if(sort_radios[i].checked){
+            checked = 1;
+            scrollActive = 0;
+            movies.sortResults(sort_radios[i].value);
+            break;
+        }
+    }
+    if(checked === 0){
+        alert("please select Radio");
+    }
+    e.preventDefault();
 }
 
 

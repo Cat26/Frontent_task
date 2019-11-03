@@ -6,13 +6,12 @@ class DisplayMovies {
         this.currentPage = 1;
         this.detailData = [];
         this.moviesStore = [];
-        this.helperListCounter = 0;
+        this.moviesShown = [];
     }
 
     sliceListOfMovies(movieDetail){
         this.detailData.push(movieDetail);
         this.moviesStore.push(movieDetail);
-        console.log(this.currentPage);
         if(this.currentPage < this.numOfPages){
             if(this.detailData.length >= 12){
                 this.listMovies(this.detailData.splice(0, 12));
@@ -21,7 +20,6 @@ class DisplayMovies {
             console.log(this.moviesStore.length)
             console.log(this.totalResults)
             if(this.totalResults == this.moviesStore.length){
-                console.log('fffff');
                 this.listMovies(this.detailData);
                 console.log(this.moviesStore);
                 this.displayError('No more results to display', 'no-more-results');
@@ -37,7 +35,8 @@ class DisplayMovies {
     }
 
     listMovies(list){
-        list.forEach(movie => {         
+        list.forEach(movie => {
+            this.moviesShown.push(movie);         
             const movieItem = new Movie(movie);
             movieItem.attributesDefaults();
             const li = document.createElement('li');
@@ -99,11 +98,13 @@ class DisplayMovies {
         this.numOfPages = 0;
         this.currentPage = 1;
         this.moviesStore = [];
-        this.helperList = [];
         this.detailData = [];
+        this.moviesShown = [];
     }
 
-
+    sortResults(){
+        
+    }
 }
 
 
