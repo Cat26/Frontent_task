@@ -31,6 +31,7 @@ function sendRequestNew() {
     scrollActive = 1;
     omdb.changeTitle(`${search_value.value}`);   
     getMovies();
+    search_value.value = '';
 }
 
 function sendRequestMore() {
@@ -115,6 +116,7 @@ function sortResults(e){
 
 function filterResultsYear(e){
     const year = document.querySelector('#filter-date').value;
+    document.querySelector('#filter-date').value = '';
     const minYear = 1895;
     const maxYear = new Date().getFullYear();
 
@@ -136,6 +138,7 @@ function filterResultsYear(e){
 function filterResultsRating(e){
     console.log('filter rating');
     const rating = document.querySelector('#filter-rating').value;
+    document.querySelector('#filter-rating').value = '';
     const minRating = 0;
     const maxRating = 10;
 
