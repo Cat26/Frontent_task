@@ -64,7 +64,7 @@ class DisplayMovies {
                 <p class="relase-date">Relase date: ${movieItem.realaseDate}</p>
                 <p class="runtime">Runtime: ${movieItem.runtime}</p>
                 <p class="rating">Rating: ${movieItem.rating}</p>
-                <p class="awards">Awards: ${movieItem.awards}</p>
+                <p class="${movieItem.checkAwards()}">Awards: ${movieItem.awards}</p>
                 <p class="description">Description: ${movieItem.description}</p>
             </div>
             `;

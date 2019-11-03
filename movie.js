@@ -9,10 +9,32 @@ class Movie {
         this.description = movie.Plot;
     }
 
-    defautImage(){
+    attributesDefaults(){
         if(this.coverImage === 'N/A'){
             this.coverImage = 'img/default-cover.jpg';
         }
+        if(this.realaseDate === 'N/A'){
+            this.realaseDate = 'no data'
+        }
+        if(this.runtime === 'N/A'){
+            this.runtime = 'no data'
+        }
+        if(this.rating === 'N/A'){
+            this.rating = 'no data'
+        }
+        if(this.description === 'N/A'){
+            this.description = 'no data'
+        }
     }
+
+    checkAwards(){
+        if(this.awards === 'N/A'){
+            return 'no-award';
+        } else {
+            return 'award';
+        }
+    }
+
+    
 
 }
