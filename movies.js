@@ -102,9 +102,27 @@ class DisplayMovies {
         this.moviesShown = [];
     }
 
-    sortResults(){
-        
+    sortResults(sortBy){
+        if(this.moviesShown.length > 0){
+            console.log(this.moviesShown);
+            if(sortBy === 'name'){
+                this.moviesShown.sort((movieA, movieB) => (movieA.Title > movieB.Title) ? 1 : -1);
+                this.clearMovies();
+                this.listMovies(this.moviesShown);
+            } else if(sortBy === 'rating'){
+                this.moviesShown.sort((movieA, movieB) => (movieA.imdbRating < movieB.imdbRating) ? 1 : -1);
+                this.clearMovies();
+                this.listMovies(this.moviesShown);
+            } else if(sortBy === 'release-date'){
+                this.moviesShown.sort((movieA, movieB) => (new Date(movieA.Released) < new Date(movieB.Released)) ? 1 : -1);
+                this.clearMovies();
+                this.listMovies(this.moviesShown);
+            }
+        } else {
+            alert('no data to sort');
+        }
     }
+
 }
 
 
